@@ -1,0 +1,5 @@
+# Development and test dependencies. Compile with:
+#   uv pip compile requirements-dev.in --universal --python-version 3.12 -o requirements-dev.txt
+-r requirements.in
+pytest>=8.2
+httpx>=0.27

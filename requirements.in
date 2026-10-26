@@ -1,0 +1,15 @@
+# Direct runtime dependencies (spec §17). Compile the pinned, cross-platform lock file with:
+#   uv pip compile requirements.in --universal --python-version 3.12 -o requirements.txt
+# Lower bounds = the versions CampusPass was developed and tested against.
+fastapi>=0.162,<1
+uvicorn[standard]>=0.30
+sqlalchemy>=2.0.30,<3
+alembic>=1.13
+psycopg[binary]>=3.2,<4
+pydantic>=2.9,<3
+pydantic-settings>=2.3,<3
+email-validator>=2.1
+pyjwt>=2.8,<3
+pwdlib[argon2]>=0.2.1
+limits>=4.0
+qrcode[pil]>=7.4
