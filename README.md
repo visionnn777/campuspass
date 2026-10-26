@@ -134,23 +134,23 @@ Put the first output in `JWT_SECRET` and the second in `TICKET_SECRET`. Each mus
 
 ### 4. Install dependencies and create the schema
 
-This ZIP includes `requirements.in` and `requirements-dev.in`, which list direct dependencies using version ranges. They are valid pip requirements files, but they are not fully pinned lock files. For a straightforward setup, install them directly and then apply the schema migrations:
+The repository includes compiled dependency files: `requirements.txt` for the runtime and `requirements-dev.txt` for the runtime plus test dependencies. The `.in` files are the direct-dependency input files used to generate those compiled files.
+
+For running the API locally:
 
 ```powershell
-pip install -r requirements-dev.in
+pip install -r requirements.txt
 alembic upgrade head
 ```
 
-For reproducible installs, you can generate compiled lock files on a machine with package-index access:
+For running the test suite, install the development dependencies instead (this includes the runtime dependencies):
 
 ```powershell
-python -m pip install uv
-uv pip compile requirements.in --universal --python-version 3.12 -o requirements.txt
-uv pip compile requirements-dev.in --universal --python-version 3.12 -o requirements-dev.txt
 pip install -r requirements-dev.txt
+alembic upgrade head
 ```
 
-If you generate these files, review and commit them with the project before changing deployment settings to use `requirements.txt`.
+Do not edit generated lock files manually. If dependencies change, update the corresponding `.in` file and recompile the lock file using `uv pip compile` with Python 3.12.
 
 ### 5. Create an administrator and local demo data
 
@@ -228,6 +228,10 @@ Errors use a consistent structure containing an error code, message, and request
 - Promoted students see their updated registration status when they next query the API; there is no notification service.
 - The full PostgreSQL integration test suite has not been confirmed as passing for the deployed revision. Run the tests and report the actual result before treating concurrency guarantees as verified.
 - The service is deployed on Render; free-tier availability and database retention are subject to the provider's current policies.
+
+## My Contribution
+
+My contribution to CampusPass focuses on the backend implementation: REST API design, authentication and role-based access control, PostgreSQL data modelling and Alembic migrations, event registration and capacity management, FIFO waitlist promotion, signed ticket/check-in workflows, input validation, error handling, and deployment documentation. I can walk through the relevant code, explain the design choices, and demonstrate the API during the TechSpace review.
 
 ## Project Structure
 
